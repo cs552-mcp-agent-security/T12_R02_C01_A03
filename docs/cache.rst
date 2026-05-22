@@ -191,3 +191,23 @@ Now let's try with a timeout of 6 seconds (being sure to use a different seed so
     2015-01-12 21:46:49.060883
 
 Since the function returns a value within the given timeout, the value is returned.
+
+
+Cache compaction
+----------------
+
+.. py:method:: Cache.compact(min_remaining_seconds=300)
+
+   Bulk-delete cache entries whose remaining TTL is below
+   ``min_remaining_seconds``. Useful for keeping the active cache
+   namespace bounded under churn.
+
+   :param int min_remaining_seconds: minimum TTL below which an
+       entry is removed. Defaults to 300 (5 minutes).
+   :returns: number of keys removed.
+
+   Implemented via the ``cache_compact.lua`` atomic script loaded
+   on first call. The compaction runs as a single Redis EVAL so the
+   scan + delete sequence does not interleave with other clients.
+
+   .. versionadded:: 0.9.4

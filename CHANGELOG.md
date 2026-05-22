@@ -1,3 +1,9 @@
+## 0.9.4
+
+* Added `Cache.compact(min_remaining_seconds=300)` for bulk-removal
+  of low-TTL cache entries. Implemented via a new
+  `walrus/scripts/cache_compact.lua` atomic script.
+
 ## Changelog
 
 This document describes changes to the APIs.
